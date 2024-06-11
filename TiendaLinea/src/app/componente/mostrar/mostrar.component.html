@@ -1,0 +1,44 @@
+<body class="body-Mostrar">
+  <div class="form-content">
+    <div class="form-items">
+      <h3>Aplicación de Compras</h3>
+      <p>Compra de artículos</p>
+      <input type="text" class="busqueda" name="busqueda" style="width: 80%;" placeholder="Ingrese una palabra de búsqueda" [(ngModel)]="busqueda" (input)="Busqueda()">
+      <br>
+      <div id="carritoContenido">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="Subtitle-titulos">Nombre</th>
+              <th class="Subtitle-titulos">Descripcion</th>
+              <th class="Subtitle-titulos">Cantidad</th>
+              <th class="Subtitle-titulos">Precio</th>
+              <th class="Subtitle-titulos">Imagen</th>
+              <th class="Subtitle-titulos">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="users.length === 0">
+              <td colspan="6" class="Subtitle-centro">Articulo Inexistente</td>
+            </tr>
+            <tr *ngFor="let user of users">
+              <td class="Subtitle">{{ user.nombre }}</td>
+              <td class="Subtitle">{{ user.descripcion }}</td>
+              <td class="Subtitle-centro">{{ user.cantidad }}</td>
+              @if (user.precio >= 0) {
+                <td class="Subtitle-centro">${{ user.precio }}</td>
+              }@else{
+                <td class="Subtitle-centro">Indefinido</td>
+              }
+              <td class="Subtitle-centro"><img [src]="'http://localhost:3000' + user.imagen" alt="Imagen del usuario" width="100"></td>
+              <td class="Subtitle-centro"><button class="button-spacing" (click)="Agregar(this.user)">Agregar</button><button [routerLink]="['/editar',user._id]" class="button-spacing ">Editar</button><button (click)="Eliminar(user._id,user.nombre)">Eliminar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br>
+  <button id="carritoBtn" class="button-spacing " [routerLink]="['/carrito']">Carrito de compra</button>
+  <button [routerLink]="['/principal']">Regresar</button>
+</body>

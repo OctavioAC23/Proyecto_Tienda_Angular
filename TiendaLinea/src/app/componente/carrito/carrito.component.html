@@ -1,0 +1,62 @@
+<body class="body-Mostrar">
+    <div class="form-content">
+        <div class="form-items">
+            <h3>Carrito de Compras</h3>
+            <p>Artículos Seleccionados</p>
+            <br>
+            <div id="carritoContenido">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="Subtitle-titulos">Nombre</th>
+                            <th class="Subtitle-titulos">Descripcion</th>
+                            <th class="Subtitle-titulos">Cantidad</th>
+                            <th class="Subtitle-titulos">Precio</th>
+                            <th class="Subtitle-titulos">Imagen</th>
+                            <th class="Subtitle-titulos">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="users.length === 0">
+                            <td colspan="6" class="Subtitle-centro">Carrito Vacio</td>
+                        </tr>
+                        <tr *ngFor="let user of users">
+                            <td class="Subtitle-centro">{{ user.nombre }}</td>
+                            <td class="Subtitle-centro">{{ user.descripcion }}</td>
+                            <td class="Subtitle-centro">
+                                <button class="Boton-carrito" (click)="decrement(user)"
+                                    [disabled]="user.cantidad <= 1">-</button>
+                                <input style="text-align: center;" matInput type="number" [(ngModel)]="user.maxCantidad"
+                                    [min]="1" [max]="user.cantidad" readonly>
+                                <button class="Boton-carrito" (click)="increment(user)"
+                                    [disabled]=" user.maxCantidad >= user.cantidad">+</button>
+                            </td>
+                            @if (user.precio >= 0) {
+                            <td class="Subtitle-centro"> ${{ (user.precio * user.maxCantidad) | number:'1.2-2' }}</td>
+                            }@else{
+                            <td class="Subtitle-centro">Indefinido</td>
+                            }
+                            <td class="Subtitle-centro"><img [src]="'http://localhost:3000' + user.imagen"
+                                    alt="Imagen del usuario" width="100"></td>
+                            <td class="Subtitle-centro">
+                                <img src="./assets/Imagenes/icons8-cancel.svg" alt="Cancelar"
+                                    (click)="EliminarDelCarrito(user._id,user.nombre)" class="pointer-cursor"
+                                    readonly="Miau">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="text-align: right;">Total: ${{Total| number:'1.2-2'}}</p>
+        </div>
+    </div>
+    <br>
+    @if (users.length === 0) {
+    <button id="FinalizarBtn" class="button-spacing" [routerLink]="['/mostrar']">Regresar</button>
+    }@else {
+    <button id="FinalizarBtn" class="button-spacing" (click)="Comprar(users)">Finalizar Compra</button>
+    <button class="button-spacing" (click)="VaciarCarrito()">Cancelar Compra</button>
+    <button [routerLink]="['/mostrar']">Regresar</button>
+    }
+
+</body>

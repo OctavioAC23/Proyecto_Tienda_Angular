@@ -1,0 +1,48 @@
+.image-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  width: 80%;
+  margin-top: -26%;
+}
+
+.advertencia {
+  color: white;
+}
+
+.button-spacing {
+  margin-right: 10px;
+  /* Espacio horizontal entre los botones */
+}
+.file-input-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.file-input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+  width: 0;
+  height: 0;
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-image: linear-gradient(90deg,#f90a0a,#6220fb);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.file-input-label:hover {
+  background-color: #0056b3;
+}
+
+.file-input-name {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #666;
+}

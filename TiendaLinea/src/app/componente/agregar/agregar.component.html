@@ -1,0 +1,62 @@
+<body class="body-Guardar">
+
+  <div class="form-content">
+    <div class="form-items">
+      <h3>Aplicación de Compras</h3>
+      <p>Captura de artículos</p>
+
+      <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="col-md-12">
+          <input class="form-control" id="nombre" placeholder="Nombre:" type="text" name="nombre" #nombre="ngModel"
+            [(ngModel)]="user.nombre" required />
+          <small class="advertencia" *ngIf="!nombre.valid && nombre.touched">El nombre no es válido</small>
+        </div>
+
+        <div class="col-md-12">
+          <input class="form-control" id="descripcion" placeholder="Descripción:" type="text" name="descripcion"
+            #descripcion="ngModel" [(ngModel)]="user.descripcion" required (input)="adjustWidth($event)"
+            [style.width.px]="inputWidth" />
+
+          <small class="advertencia" *ngIf="!descripcion.valid && descripcion.touched">El descripcion no es
+            válido</small>
+        </div>
+
+
+        <div class="col-md-12">
+          <input class="form-control" id="precio" placeholder="Precio:" type="number" name="precio" #precio="ngModel"
+            [(ngModel)]="user.precio" required pattern="^\d+(\.\d{1,2})?$" />
+          <small class="advertencia" *ngIf="!precio.valid && precio.touched">El precio no es válido</small>
+        </div>
+
+        <div class="col-md-12">
+          <input class="form-control" id="cantidad" placeholder="Cantidad en almacén:" type="number" name="cantidad"
+            #cantidad="ngModel" [(ngModel)]="user.cantidad" required patter="[0-9]+">
+        </div>
+        <br>
+        <div class="col-md-12">
+          <div class="file-input-container">
+            <input class="file-input" name="foto" type="file" id="foto" accept="image/*" placeholder="Fotografía::"
+                   #imagen (change)="onImageChange($event)" required>
+            <label for="foto" class="file-input-label">Seleccionar archivo</label>
+            <span class="file-input-name">{{ selectedFile?.name || 'Ningún archivo seleccionado' }}</span>
+          </div>
+          <small class="advertencia" *ngIf="!isImageLoaded && imageTouched">Debes cargar una imagen</small>
+          <br>
+          <div class="image-container">
+            <img *ngIf="imagePreview" [src]="imagePreview" alt="Vista previa de la imagen" width="160">
+          </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="form-button mt-3">
+          <input type="submit" value="Enviar" class="btn btn-success button-spacing" [disabled]="userForm.invalid || !isImageLoaded" />
+          
+          <button [routerLink]="returnUrl">Regresar</button>
+          </div>
+      </form>
+    </div>
+  </div>
+
+
+</body>
